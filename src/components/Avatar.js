@@ -1,8 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 
-const Avatar = ({uri}) => {
-  return <Image style={styles.image} source={{uri}} />;
+const Avatar = ({uri, style}) => {
+  return <Image style={[styles.image, style]} source={{uri}} />;
 };
 
 Avatar.defaultProps = {
@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
   image: {
     width: 30,
     height: 30,
-    borderRadius: 15,
+    // Passing big number for border radius to have always cycle
+    borderRadius: 1000,
     borderWidth: 1,
     borderColor: 'blue',
     margin: 5,
