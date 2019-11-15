@@ -1,2 +1,3 @@
 export const NAV_FRIENDS_LIST = 'NAV_FRIENDS_LIST';
 export const NAV_CONVERSATION = 'NAV_CONVERSATION';
+export const NAV_MODAL = 'NAV_MODAL';

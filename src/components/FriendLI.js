@@ -4,7 +4,7 @@ import {useNavigation} from 'react-navigation-hooks';
 
 import Avatar from './Avatar';
 
-import {NAV_CONVERSATION} from '../navigation/constants';
+import {NAV_CONVERSATION, NAV_MODAL} from '../navigation/constants';
 
 const FriendLI = ({user}) => {
   const {navigate} = useNavigation();
@@ -19,8 +19,15 @@ const FriendLI = ({user}) => {
     navigate(NAV_CONVERSATION, {username});
   }, [navigate, username]);
 
+  const onLongPress = useCallback(() => {
+    navigate(NAV_MODAL, {username});
+  }, [navigate, username]);
+
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      onLongPress={onLongPress}>
       <Avatar uri={avatarURI} style={styles.avatar} />
       <Text style={styles.username}>{username}</Text>
     </TouchableOpacity>

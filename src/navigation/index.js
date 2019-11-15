@@ -4,7 +4,15 @@ import {createStackNavigator} from 'react-navigation-stack';
 import FriendsList from '../screens/FriendsList';
 import Conversation from '../screens/Conversation';
 
-import {NAV_FRIENDS_LIST, NAV_CONVERSATION} from './constants';
+import {NAV_FRIENDS_LIST, NAV_CONVERSATION, NAV_MODAL} from './constants';
+
+const getConversationNavTitle = ({navigation}) => {
+  const username = navigation.getParam('username');
+
+  return {
+    title: username,
+  };
+};
 
 const MainStack = createStackNavigator({
   [NAV_FRIENDS_LIST]: {
@@ -15,16 +23,28 @@ const MainStack = createStackNavigator({
   },
   [NAV_CONVERSATION]: {
     screen: Conversation,
-    navigationOptions: ({navigation}) => {
-      const username = navigation.getParam('username');
-
-      return {
-        title: username,
-      };
-    },
+    navigationOptions: getConversationNavTitle,
   },
 });
 
-const AppNavigator = createAppContainer(MainStack);
+const modalStack = createStackNavigator(
+  {
+    [NAV_FRIENDS_LIST]: {
+      screen: MainStack,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    [NAV_MODAL]: {
+      screen: Conversation,
+      navigationOptions: getConversationNavTitle,
+    },
+  },
+  {
+    mode: 'modal',
+  },
+);
+
+const AppNavigator = createAppContainer(modalStack);
 
 export default AppNavigator;
